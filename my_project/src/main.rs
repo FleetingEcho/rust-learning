@@ -5,6 +5,7 @@ mod base_type;
 mod my_struct;
 mod my_match;
 mod all_pattern;
+mod generics;
 // use utils::helper::print_max_points;
 
 fn main() {
@@ -21,5 +22,6 @@ fn main() {
     // base_type::base_type_main();
     // my_struct::test();
     // my_match::match_if();
-    all_pattern::test();
+    // all_pattern::test();
+    generics::test();
 }
