@@ -66,3 +66,128 @@ where T: From<i32> + Display {
 create_and_print::<i64>() → 100.into() 变成 100i64，然后打印 a is: 100。
 🚀 这个模式常用于构造泛型值，并确保它可以被转换和显示！
 */
+
+//结构体中使用泛型
+
+// struct Point<T> {
+//     x: T,
+//     y: T,
+// }
+
+// fn main() {
+//     let integer = Point { x: 5, y: 10 };
+//     let float = Point { x: 1.0, y: 4.0 };
+// }
+
+// 不同类型
+struct Point<T,U> {
+    x: T,
+    y: U,
+}
+fn main() {
+    let p = Point{x: 1, y :1.1};
+}
+
+/*
+枚举中的泛型
+enum Option<T> {
+    Some(T),
+    None,
+}
+
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+
+
+方法中使用泛型
+
+struct Point<T> {
+    x: T,
+    y: T,
+}
+
+impl<T> Point<T> {
+    fn x(&self) -> &T {
+        &self.x
+    }
+}
+
+fn main() {
+    let p = Point { x: 5, y: 10 };
+
+    println!("p.x = {}", p.x());
+}
+这里的 Point<T> 不再是泛型声明，而是一个完整的结构体类型，因为我们定义的结构体就是 Point<T> 而不再是 Point
+
+*/
+
+
+impl<T, U> Point<T, U> {
+    fn mixup<V, W>(self, other: Point<V, W>) -> Point<T, W> {
+        Point {
+            x: self.x,
+            y: other.y,
+        }
+    }
+}
+// impl Point<f32> {
+//     fn distance_from_origin(&self) -> f32 {
+//         (self.x.powi(2) + self.y.powi(2)).sqrt()
+//     }
+// }
+
+
+fn generic_test() {
+    let p1 = Point { x: 5, y: 10.4 };
+    let p2 = Point { x: "Hello", y: 'c'};
+
+    let p3 = p1.mixup(p2);
+
+    println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
+}
+
+// [i32; 3] 和 [i32; 2] 确实是两个完全不同的类型，因此无法用同一个函数调用。
+
+
+// 让 display_array 能打印任意长度的 i32 数组：
+// fn display_array(arr: &[i32]) {
+//     println!("{:?}", arr);
+// }
+// fn main() {
+//     let arr: [i32; 3] = [1, 2, 3];
+//     display_array(&arr);
+
+//     let arr: [i32; 2] = [1, 2];
+//     display_array(&arr);
+// }
+
+
+//将 i32 改成所有类型的数组：
+// fn display_array<T: std::fmt::Debug>(arr: &[T]) {
+//     println!("{:?}", arr);
+// }
+// fn main() {
+//     let arr: [i32; 3] = [1, 2, 3];
+//     display_array(&arr);
+
+//     let arr: [i32; 2] = [1, 2];
+//     display_array(&arr);
+// }
+
+
+/*
+const 泛型
+fn display_array<T: std::fmt::Debug, const N: usize>(arr: [T; N]) {
+    println!("{:?}", arr);
+}
+fn main() {
+    let arr: [i32; 3] = [1, 2, 3];
+    display_array(arr);
+
+    let arr: [i32; 2] = [1, 2];
+    display_array(arr);
+}
+    N 就是 const 泛型，定义的语法是 const N: usize，表示 const 泛型 N ，它基于的值类型是 usize。
+*/
