@@ -1,6 +1,8 @@
 mod variable;
 mod utils;
 mod config;
+mod base_type;
+mod my_struct;
 // use utils::helper::print_max_points;
 
 fn main() {
@@ -13,4 +15,7 @@ fn main() {
     println!("Sum: {}", sum);
 
     utils::helper::print_max_points();
+
+    base_type::base_type_main();
+    my_struct::test()
 }
