@@ -201,7 +201,8 @@ fn demonstrate_pattern_matching2() {
 
     let point = Point { x: 10, y: 5, z: 0 };
     if let p @ Point { x: 10, y, .. } = point {
-        println!("x 是 10，y 是 {}，完整结构体: {:?}", y, p); //x 是 10，y 是 5，完整结构体: Point { x: 10, y: 5, z: 0 }
+        println!("x 是 10, y 是 {}，完整结构体: {:?}", y, p);
+        //x 是 10，y 是 5，完整结构体: Point { x: 10, y: 5, z: 0 }
     } else {
         println!("x 不是 10 :(");
     }
