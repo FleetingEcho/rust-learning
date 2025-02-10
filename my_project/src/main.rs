@@ -3,6 +3,7 @@ mod utils;
 mod config;
 mod base_type;
 mod my_struct;
+mod my_match;
 // use utils::helper::print_max_points;
 
 fn main() {
@@ -17,5 +18,6 @@ fn main() {
     utils::helper::print_max_points();
 
     base_type::base_type_main();
-    my_struct::test()
+    my_struct::test();
+    my_match::match_if();
 }
