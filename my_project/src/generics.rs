@@ -191,3 +191,14 @@ fn main() {
 }
     N 就是 const 泛型，定义的语法是 const N: usize，表示 const 泛型 N ，它基于的值类型是 usize。
 */
+
+// const fn，即常量函数。const fn 允许我们在编译期对函数进行求值，从而实现更高效、更灵活的代码设计。
+// const fn add(a: usize, b: usize) -> usize {
+//     a + b
+// }
+
+// const RESULT: usize = add(5, 10);
+
+// fn main() {
+//     println!("The result is: {}", RESULT);
+// }
