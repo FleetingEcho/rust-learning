@@ -59,7 +59,6 @@ pub fn search<'a>(query: &str, contents: &'a str, ignore_case: bool) -> Vec<&'a 
 
 
 #[cfg(test)]
-#[cfg(test)]
 mod tests {
     use super::*;
 
