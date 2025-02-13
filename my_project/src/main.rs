@@ -28,11 +28,41 @@
 
 
 
-use my_project::kinds::PrimaryColor;
-use my_project::utils::mix;
+// use my_project::kinds::PrimaryColor;
+// use my_project::utils::mix;
+
+// fn main() {
+//     let blue = PrimaryColor::Blue;
+//     let yellow = PrimaryColor::Yellow;
+//     println!("{:?}",mix(blue, yellow));
+// }
+
+
+
+struct HasDrop1;
+struct HasDrop2;
+
+impl Drop for HasDrop1 {
+    fn drop(&mut self) {
+        println!("Dropping HasDrop1");
+    }
+}
+
+impl Drop for HasDrop2 {
+    fn drop(&mut self) {
+        println!("Dropping HasDrop2");
+    }
+}
+
+struct Container {
+    field1: HasDrop1,
+    field2: HasDrop2,
+}
 
 fn main() {
-    let blue = PrimaryColor::Blue;
-    let yellow = PrimaryColor::Yellow;
-    println!("{:?}",mix(blue, yellow));
+    let _c = Container {
+        field1: HasDrop1,
+        field2: HasDrop2,
+    };
+    println!("Main is running...");
 }
