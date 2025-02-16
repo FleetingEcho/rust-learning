@@ -1,9 +1,14 @@
-use axum::{Router};
 use tokio::net::TcpListener;
-use crate::routes::create_routes;
+use axum::Router;
+use sqlx::PgPool;
+use std::sync::Arc;
 
-pub async fn app_service() {
-    let app = create_routes();
-    let listener = TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    axum::serve(listener, app).await.unwrap();
+use crate::routes::{create_routes, task_routes};
+
+pub fn create_app(pool: PgPool) -> Router {
+    let shared_pool = Arc::new(pool);
+    Router::new()
+        .merge(create_routes())
+        .merge(task_routes())
+        .with_state(shared_pool)
 }
