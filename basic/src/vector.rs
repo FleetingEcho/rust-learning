@@ -45,4 +45,11 @@ pub fn vec_test() {
     // 🔟 排序 Vec
     numbers.sort();
     println!("Sorted Vec: {:?}", numbers);
+
+    let vec_numbers = vec![1, 2, 3, 4, 5];
+    for num in vec_numbers.into_iter() {// vec_numbers 被消耗
+        println!("{}", num);
+    }
+    // println!("{:?}", vec_numbers); // ❌ 编译错误，numbers 已被移动
+
 }
