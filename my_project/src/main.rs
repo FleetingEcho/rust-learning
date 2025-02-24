@@ -26,8 +26,6 @@
 //     generics::test();
 // }
 
-
-
 // use my_project::kinds::PrimaryColor;
 // use my_project::utils::mix;
 
@@ -36,8 +34,6 @@
 //     let yellow = PrimaryColor::Yellow;
 //     println!("{:?}",mix(blue, yellow));
 // }
-
-
 
 struct HasDrop1;
 struct HasDrop2;

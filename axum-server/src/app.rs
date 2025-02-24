@@ -1,7 +1,7 @@
-use tokio::net::TcpListener;
 use axum::Router;
 use sqlx::PgPool;
 use std::sync::Arc;
+use tokio::net::TcpListener;
 
 use crate::routes::{create_routes, task_routes};
 

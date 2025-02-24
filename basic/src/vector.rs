@@ -47,9 +47,68 @@ pub fn vec_test() {
     println!("Sorted Vec: {:?}", numbers);
 
     let vec_numbers = vec![1, 2, 3, 4, 5];
-    for num in vec_numbers.into_iter() {// vec_numbers 被消耗
+    for num in vec_numbers.into_iter() {
+        // vec_numbers 被消耗
         println!("{}", num);
     }
     // println!("{:?}", vec_numbers); // ❌ 编译错误，numbers 已被移动
 
+    {
+        let mut nums = vec![5, 3, 8, 1, 2];
+        nums.sort(); // 默认升序排序
+        nums.sort_unstable(); // 不稳定排序, 速度更快
+        println!("{:?}", nums); // [1, 2, 3, 5, 8]
+    }
+
+    {
+        //自定义排序
+        let mut words = vec!["apple", "banana", "grape", "pear"];
+        words.sort_by(|a, b| a.len().cmp(&b.len())); // 按字符串长度排序
+        println!("{:?}", words); // ["pear", "apple", "grape", "banana"]
+
+        {
+            //降序呢？
+            words.sort_by(|a, b| b.len().cmp(&a.len())); // 降序
+
+            //浮点数？
+            let mut floats = vec![3.2, 1.5, 4.8, 2.1];
+            floats.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        }
+    }
+
+    {
+        let mut people = vec![("Alice", 30), ("Bob", 25), ("Charlie", 35)];
+        people.sort_by_key(|&(_, age)| age); // 按年龄升序
+        println!("{:?}", people); // [("Bob", 25), ("Alice", 30), ("Charlie", 35)]
+        people.sort_by_key(|&(_, age)| std::cmp::Reverse(age));
+    }
+
+    {
+        let mut nums = vec![5, 3, 8, 1, 2];
+        quicksort(&mut nums);
+        println!("{:?}", nums); // [1, 2, 3, 5, 8]
+    }
+}
+
+fn quicksort(arr: &mut [i32]) {
+    if arr.len() <= 1 {
+        return;
+    }
+
+    let pivot_index = partition(arr);
+    quicksort(&mut arr[..pivot_index]);
+    quicksort(&mut arr[pivot_index + 1..]);
+}
+
+fn partition(arr: &mut [i32]) -> usize {
+    let pivot = arr[arr.len() - 1]; // 选择最后一个元素作为 pivot
+    let mut i = 0;
+    for j in 0..arr.len() - 1 {
+        if arr[j] < pivot {
+            arr.swap(i, j);
+            i += 1;
+        }
+    }
+    arr.swap(i, arr.len() - 1);
+    return i;
 }

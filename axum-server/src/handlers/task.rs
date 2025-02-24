@@ -1,16 +1,16 @@
+use crate::{
+    auth::AuthUser,
+    error::AppError,
+    models::task::{CreateTask, Task, TaskFilter, UpdateTask},
+};
+use anyhow::Error;
 use axum::{
     extract::{Path, Query, State},
-    Json
+    Json,
 };
-use sqlx::{PgPool, QueryBuilder};
-use crate::{
-    models::task::{CreateTask, Task, TaskFilter, UpdateTask},
-    error::AppError,
-    auth::AuthUser,
-};
-use std::sync::Arc;
 use serde_json::json;
-use anyhow::Error;
+use sqlx::{PgPool, QueryBuilder};
+use std::sync::Arc;
 
 pub async fn get_tasks(
     State(pool): State<Arc<PgPool>>,
@@ -45,7 +45,6 @@ pub async fn get_tasks(
     Ok(Json(tasks))
 }
 
-
 pub async fn create_task(
     auth_user: AuthUser,
     State(pool): State<Arc<PgPool>>,
@@ -73,13 +72,11 @@ pub async fn get_task(
     State(pool): State<Arc<PgPool>>,
     Path(task_id): Path<i32>,
 ) -> Result<Json<Task>, AppError> {
-    let task = sqlx::query_as::<_, Task>(
-        "SELECT * FROM tasks WHERE id = $1 AND user_id = $2"
-    )
-    .bind(task_id)
-    .bind(auth_user.user_id)
-    .fetch_one(pool.as_ref())
-    .await?;
+    let task = sqlx::query_as::<_, Task>("SELECT * FROM tasks WHERE id = $1 AND user_id = $2")
+        .bind(task_id)
+        .bind(auth_user.user_id)
+        .fetch_one(pool.as_ref())
+        .await?;
 
     Ok(Json(task))
 }
@@ -136,7 +133,6 @@ pub async fn update_task(
 
     Ok(Json(task))
 }
-
 
 pub async fn delete_task(
     auth_user: AuthUser,

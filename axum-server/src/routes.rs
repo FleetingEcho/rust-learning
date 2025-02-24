@@ -1,11 +1,12 @@
-use axum::{Router, routing::{get, post, put, delete}, response::IntoResponse};
+use axum::{
+    response::IntoResponse,
+    routing::{delete, get, post, put},
+    Router,
+};
 use sqlx::PgPool;
 use std::sync::Arc;
 
-use crate::handlers::task::{
-    get_tasks, create_task, get_task,
-    update_task, delete_task,
-};
+use crate::handlers::task::{create_task, delete_task, get_task, get_tasks, update_task};
 
 async fn root() -> impl IntoResponse {
     "Hello root"
@@ -29,7 +30,6 @@ pub fn create_routes() -> Router<Arc<PgPool>> {
         .route("/foo", get(get_foo).post(post_foo))
         .route("/foo/bar", get(foo_bar))
 }
-
 
 pub fn task_routes() -> Router<Arc<PgPool>> {
     Router::new()

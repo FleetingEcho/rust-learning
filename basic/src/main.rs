@@ -1,9 +1,11 @@
-mod hashmap;
-mod vector;
 mod array;
+mod hashmap;
+mod string;
+mod vector;
 
 fn main() {
-    array::array_practice();
+    string::string_practice();
+    // array::array_practice();
     // hashmap::test();
     // vector::vec_test();
 }

@@ -1,8 +1,8 @@
-use axum::extract::FromRequestParts;
+use crate::error::AppError;
 use async_trait::async_trait;
+use axum::extract::FromRequestParts;
 use axum::http::request::Parts;
 use axum::http::StatusCode;
-use crate::error::AppError;
 
 #[derive(Debug)]
 pub struct AuthUser {

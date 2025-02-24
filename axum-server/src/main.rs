@@ -1,14 +1,14 @@
 mod app;
-mod routes;
+mod auth;
+mod error;
 mod handlers;
 mod models;
-mod error;
-mod auth;
+mod routes;
 
-use axum::{Router, serve};
+use axum::{serve, Router};
+use sqlx::PgPool;
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
-use sqlx::PgPool;
 
 #[tokio::main]
 async fn main() {
@@ -18,7 +18,5 @@ async fn main() {
 
     let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
     let listener = TcpListener::bind(addr).await.unwrap();
-    serve(listener, app.into_make_service())
-        .await
-        .unwrap();
+    serve(listener, app.into_make_service()).await.unwrap();
 }

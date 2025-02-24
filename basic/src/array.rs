@@ -1,48 +1,53 @@
-pub fn array_practice(){
-  let  mut numbers: [i32;10]=[ 10, 20, 30, 40, 50,60,70,80,90,100]; // 10个元素的数组
-  println!("initial numbers, {:?},length is {:?}, the number at index 2 is::{:?}",numbers,numbers.len() , numbers[2]);
+pub fn array_practice() {
+    let mut numbers: [i32; 10] = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]; // 10个元素的数组
+    println!(
+        "initial numbers, {:?},length is {:?}, the number at index 2 is::{:?}",
+        numbers,
+        numbers.len(),
+        numbers[2]
+    );
 
-  let slice=&numbers[1..4];
-  println!("slice, {:?}",slice);
+    let slice = &numbers[1..4];
+    println!("slice, {:?}", slice);
 
-  let repeated_numbers=[1;5]; // 初始化所有元素
-  println!("repeated numbers, {:?}",repeated_numbers);
+    let repeated_numbers = [1; 5]; // 初始化所有元素
+    println!("repeated numbers, {:?}", repeated_numbers);
 
+    // for loop
+    // for num in numbers{
+    //   println!("number is {:?}",num);//会复制数字，不消耗，是副本
+    // }
+    println!("{:?}", numbers); // 仍然可以访问
 
-  // for loop
-  // for num in numbers{
-  //   println!("number is {:?}",num);//会复制数字，不消耗，是副本
-  // }
-  println!("{:?}", numbers); // 仍然可以访问
+    // iter loop
+    for num in numbers[0..2].iter() {
+        //iter() 返回 不可变引用 &T，不会消耗数组。
+        println!("iter number is {:?}", num);
+    }
 
-  // iter loop
-  for num in numbers[0..2].iter(){//iter() 返回 不可变引用 &T，不会消耗数组。
-    println!("iter number is {:?}",num);
-  }
+    for num in numbers.iter_mut() {
+        *num *= 2; // 通过 &mut T 修改值
+    }
 
-  for num in numbers.iter_mut() {
-    *num *= 2; // 通过 &mut T 修改值
+    let squared: Vec<i32> = numbers.iter().map(|x| x * x).collect();
+    println!("squared numbers, {:?}", squared);
+
+    let even_numbers: Vec<i32> = numbers.iter().copied().filter(|x| x % 3 == 0).collect();
+    let even_numbers1: Vec<&i32> = numbers.iter().filter(|x| *x % 3 == 0).collect();
+    println!(
+        "even numbers, {:?}, address is {:?}",
+        even_numbers, even_numbers1
+    );
+
+    let result: Vec<i32> = numbers
+        .iter()
+        .copied()
+        .filter(|x| x % 3 == 0) // 先筛选偶数
+        .map(|x| x * 10) // 再乘以 10
+        .collect();
+
+    println!("{:?}", result); // [20, 40, 60]
 }
-
-  let squared:Vec<i32> = numbers.iter().map(|x| x*x).collect();
-  println!("squared numbers, {:?}",squared);
-
-  let even_numbers:Vec<i32>=numbers.iter().copied().filter(|x| x%3==0).collect();
-  let even_numbers1:Vec<&i32>=numbers.iter().filter(|x| *x%3==0).collect();
-  println!("even numbers, {:?}, address is {:?}",even_numbers,even_numbers1);
-
-  let result: Vec<i32> = numbers
-          .iter()
-          .copied()
-          .filter(|x| x % 3 == 0) // 先筛选偶数
-          .map(|x| x * 10) // 再乘以 10
-          .collect();
-
-  println!("{:?}", result); // [20, 40, 60]
-
-
-}
-
 
 /*
 iter() 返回 不可变引用 &T。

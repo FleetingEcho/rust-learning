@@ -34,8 +34,8 @@ pub fn test() {
 }
 */
 
-use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Address {
@@ -110,5 +110,3 @@ pub fn test() {
         println!("Failed to extract data");
     }
 }
-
-

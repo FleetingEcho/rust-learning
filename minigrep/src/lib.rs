@@ -1,6 +1,6 @@
+use std::env;
 use std::error::Error;
 use std::fs;
-use std::env;
 
 pub struct Config {
     pub query: String,
@@ -10,7 +10,7 @@ pub struct Config {
 
 impl Config {
     pub fn build(mut args: impl Iterator<Item = String>) -> Result<Config, &'static str> {
-        args.next();// program name, pass
+        args.next(); // program name, pass
 
         let query = match args.next() {
             Some(arg) => arg,
@@ -41,7 +41,6 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-
 pub fn search<'a>(query: &str, contents: &'a str, ignore_case: bool) -> Vec<&'a str> {
     if ignore_case {
         let query = query.to_lowercase();
@@ -57,7 +56,6 @@ pub fn search<'a>(query: &str, contents: &'a str, ignore_case: bool) -> Vec<&'a 
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -66,7 +64,10 @@ mod tests {
     fn case_sensitive() {
         let query = "duct";
         let contents = "Rust:\nsafe, fast, productive.\nPick three.\nDuct tape.";
-        assert_eq!(vec!["safe, fast, productive."], search(query, contents, false));
+        assert_eq!(
+            vec!["safe, fast, productive."],
+            search(query, contents, false)
+        );
     }
 
     #[test]
